@@ -15,13 +15,15 @@ import { useToast } from "@/components/ui/use-toast"
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Auth() {
+  const router = useRouter();
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user?.uid;
-        console.log(uid)
+        router.push('/home')
       } else {
         console.log("no user client")
       }
@@ -32,7 +34,7 @@ export default function Auth() {
   return (
     <Card className="w-[375px] border-2">
       <div className="w-full relative h-[40vh]">
-        <Image alt="bot" src="/bot.png" fill objectFit="contain" />
+        <Image alt="bot" src="/bot.png" fill style={{objectFit:"contain"}} />
       </div>
       <CardHeader>
         <CardTitle className="text-center tracking-wide">Login</CardTitle>
